@@ -1,0 +1,20 @@
+# Entorno
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Datos y artefactos (pesados / regenerables)
+# data/raw/ no se ignora porque son bases de datos estáticas para el MVP.
+# OJO: GitHub tiene un límite de 100MB por archivo. Si hay archivos > 100MB, usar Git LFS o zipearlos.
+data/interim/*
+data/processed/*
+models/*
+!**/.gitkeep
+
+# Sistema
+.DS_Store
+.vscode/
+.idea/

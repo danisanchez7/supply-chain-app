@@ -1,0 +1,47 @@
+[project]
+name = "process"
+version = "0.1.0"
+description = "Prueba técnica: asignación de órdenes, análisis de extrusora y pronóstico de demanda"
+readme = "README.md"
+authors = [
+    { name = "Daniel Sanchez", email = "dasanchezvi@unal.edu.co" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "highspy>=1.15.1",
+    "lightgbm>=4.7.0",
+    "mapie>=1.5.0",
+    "matplotlib>=3.11.2",
+    "pandas>=3.0.6",
+    "pulp>=4.0.0",
+    "pyarrow>=25.0.1",
+    "scikit-learn>=1.9.1",
+    "scipy>=1.18.1",
+    "seaborn>=0.13.2",
+    "statsmodels>=0.15.0",
+    "streamlit>=1.65.0",
+]
+
+[project.scripts]
+process = "process:main"
+
+[build-system]
+requires = ["uv_build>=0.12.20,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "PD"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
