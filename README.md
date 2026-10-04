@@ -47,7 +47,7 @@ supply-chain-app/
 │
 ├── tests/                      # Suite de pruebas unitarias (Pytest)
 │
-└── src/process/                # 🧠 LÓGICA DE NEGOCIO Y MODELOS CORE
+└── src/process/                # LÓGICA DE NEGOCIO Y MODELOS CORE
     ├── asignacion/             # Motor MILP (Constraints, Función Objetivo) y heurística WSPT
     ├── demanda/                # Feature Engineering y modelos jerárquicos LightGBM
     ├── extrusora/              # Análisis de energía, limpieza de telemetría IoT y tests estadísticos
@@ -78,6 +78,21 @@ uv sync
 uv run streamlit run app.py
 ```
 *(Se abrirá automáticamente la aplicación interactiva de diagnóstico en tu navegador web predeterminado).*
+
+---
+
+## Despliegue con Docker (Listo para Cloud)
+
+El proyecto está empaquetado y listo para ser desplegado en servicios de la nube (AWS EC2, Google Cloud Run, Azure App Service) garantizando portabilidad aislando el entorno:
+
+```bash
+# 1. Construir la imagen de Docker
+docker build -t supply-chain-app .
+
+# 2. Levantar el contenedor
+docker run -p 8501:8501 supply-chain-app
+```
+*Accede a `http://localhost:8501` en tu navegador.*
 
 ---
 
