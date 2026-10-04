@@ -50,7 +50,7 @@ def test_crear_features_estructura(mock_sales):
 def test_crear_features_valores(mock_sales):
     """Verifica la lógica matemática de los promedios móviles y variables booleanas."""
     df_feat = crear_features(mock_sales, lags=[1])
-    
+
     # Dado que ventas = 100 siempre, el rolling_mean_7 debe ser exactamente 100.
     assert (df_feat["rolling_mean_7"] == 100.0).all()
     assert (df_feat["lag_1"] == 100.0).all()
