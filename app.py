@@ -502,6 +502,16 @@ elif tab_selection == "Eficiencia Energética (Extrusora)":
     ax_anom.legend()
     st.pyplot(fig_anom)
 
+    with st.expander("Justificación Matemática: Anomalías Multidimensionales en Proyecciones 2D"):
+        st.write("""
+        **Nota Técnica:** Es común observar registros catalogados como anómalos (rojos) superpuestos en el clúster de operación normal. 
+        
+        Esto ocurre debido a que la gráfica es una proyección **bidimensional** (Consumo vs Eficiencia), mientras que el algoritmo *Isolation Forest* se entrenó en un espacio de **10 dimensiones** evaluando el perfil térmico simultáneo de los cañones (`temp_barril_2` al `11`). 
+        
+        Una anomalía en el centro de la gráfica indica que, si bien la potencia agregada de los motores y el KPI final caen dentro de un rango promedio, la receta de temperaturas aplicada por el operador en ese turno fue estadísticamente aberrante (ej. cañones apagados compensados con cañones sobrecalentados). Esto evidencia fallas de proceso que son invisibles a un análisis visual clásico.
+        """)
+
+
     # 3. Clustering de Temperaturas (K-Means) y ANOVA
     st.markdown("<br>", unsafe_allow_html=True)
     st.subheader("3. Perfiles de Temperatura Óptimos (Clustering)")
