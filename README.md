@@ -96,9 +96,11 @@ docker run -p 8501:8501 supply-chain-app
 
 ---
 
-## Pruebas y Calidad de Código
+## Pruebas y Calidad de Código (CI/CD)
 
-El repositorio cuenta con estrictos estándares de formato, tipado y testing.
+El repositorio cuenta con estrictos estándares de formato, tipado y testing, respaldados por un pipeline de **Integración Continua (GitHub Actions)**. 
+
+Cada *Push* o *Pull Request* dispara automáticamente un flujo en la nube que ejecuta:
 
 ```bash
 uv run pytest                # Ejecutar tests de integridad de módulos lógicos
