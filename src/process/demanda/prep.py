@@ -26,8 +26,8 @@ def preparar_demanda_tiendas() -> pd.DataFrame:
     cal = load_calendar()
     df_long = df_long.merge(cal[["d", "date", "wday", "month", "event_name_1"]], on="d", how="left")
     df_long["date"] = pd.to_datetime(df_long["date"])
-    df_long.sort_values(["store_id", "cat_id", "date"], inplace=True)
-    df_long.reset_index(drop=True, inplace=True)
+    df_long = df_long.sort_values(["store_id", "cat_id", "date"])
+    df_long = df_long.reset_index(drop=True)
 
     return df_long
 
@@ -60,5 +60,5 @@ def crear_features(df: pd.DataFrame, lags: list[int] | None = None) -> pd.DataFr
     # Asegurarse de no eliminar filas por culpa de event_name_1 (que es mayormente nulo)
     if "event_name_1" in out.columns:
         out = out.drop(columns=["event_name_1"])
-        
+
     return out.dropna().reset_index(drop=True)

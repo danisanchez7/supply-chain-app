@@ -71,20 +71,22 @@ def curvas_temperatura_optimas(df: pd.DataFrame, n_clusters: int = 5) -> dict[st
     }
 
 
-def detectar_anomalias_isolation_forest(df: pd.DataFrame, contamination: float = 0.05) -> pd.DataFrame:
+def detectar_anomalias_isolation_forest(
+    df: pd.DataFrame, contamination: float = 0.05
+) -> pd.DataFrame:
     """Aplica Isolation Forest para detectar anomalías de consumo energético.
-    
+
     Identifica comportamientos atípicos en el consumo (kW) y la eficiencia (kpi)
     sin requerir reglas duras manuales.
     """
     df_out = df.copy()
     features = ["md1_power", "md2_power", "kpi"]
     valid = df_out.dropna(subset=features)
-    
+
     iso = IsolationForest(contamination=contamination, random_state=42, n_jobs=-1)
-    
+
     # -1 para anomalía, 1 para normal
     preds = iso.fit_predict(valid[features])
-    
+
     df_out.loc[valid.index, "anomalia_iso"] = preds == -1
     return df_out

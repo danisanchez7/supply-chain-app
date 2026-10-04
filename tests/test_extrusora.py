@@ -27,7 +27,15 @@ def test_limpiar_extrusora():
 
     df = pd.DataFrame(
         {
-            "kpi": [100, 102, 98, 101, 150, 100000, pd.NA],  # 100000 es un outlier extremo, 150 es parada
+            "kpi": [
+                100,
+                102,
+                98,
+                101,
+                150,
+                100000,
+                pd.NA,
+            ],  # 100000 es un outlier extremo, 150 es parada
             "alimento_de_polvo_rot": [1.5, 1.4, 1.6, 1.5, 0.01, 1.2, 1.0],  # 0.01 es parada
             "md1_power": [50] * 7,
             "md2_power": [50] * 7,
@@ -60,7 +68,7 @@ def test_anomalias():
 
     anomalias = detectar_anomalias(df, contamination=0.25)
     assert "anomalia" in anomalias.columns
-    assert anomalias.iloc[3]["anomalia"] == True
+    assert anomalias.iloc[3]["anomalia"]
 
     ranking = ranking_turnos_anomalos(anomalias)
     assert ranking.iloc[0]["turno_id"] == "B"

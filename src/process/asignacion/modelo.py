@@ -108,36 +108,36 @@ def asignacion_greedy(pares: pd.DataFrame, capacidad: pd.Series) -> pd.DataFrame
     """Heurística de arranque: asigna por bloque de material respetando restricciones."""
     restante = capacidad.astype(float).to_dict()
     asignadas: list[int] = []
-    
+
     # Agrupar por material para asegurar que todas las órdenes del mismo material
     # vayan al mismo proveedor, evitando romper la restricción 3.
     pares_g = pares.copy()
     pares_g["orden_idx"] = pares_g.index
-    
-    mat_aggs = pares_g.groupby("material").agg({
-        "prioridad": "sum",
-        "minutos_totales_de_la_orden": "sum",
-        "orden": "nunique"
-    }).sort_values(["prioridad", "minutos_totales_de_la_orden"], ascending=[False, True])
-    
+
+    mat_aggs = (
+        pares_g.groupby("material")
+        .agg({"prioridad": "sum", "minutos_totales_de_la_orden": "sum", "orden": "nunique"})
+        .sort_values(["prioridad", "minutos_totales_de_la_orden"], ascending=[False, True])
+    )
+
     for material, row_m in mat_aggs.iterrows():
         minutos = row_m["minutos_totales_de_la_orden"]
         n_ordenes = row_m["orden"]
-        
+
         cands = pares_g[pares_g["material"] == material]
-        
+
         # Un proveedor solo es elegible si puede tomar TODAS las órdenes del material
         prov_validos = []
         for p, gp in cands.groupby("id"):
             if len(gp) == n_ordenes and restante[p] >= minutos:
                 prov_validos.append((p, gp["score"].mean(), gp["orden_idx"].tolist()))
-                
+
         # Ordenar por mejor score
         prov_validos.sort(key=lambda x: x[1], reverse=True)
-        
+
         if prov_validos:
             p_elegido, _, indices = prov_validos[0]
             restante[p_elegido] -= minutos
             asignadas.extend(indices)
-            
+
     return pares.loc[asignadas].reset_index(drop=True)
