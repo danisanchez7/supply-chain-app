@@ -442,7 +442,7 @@ elif tab_selection == "Eficiencia Energética (Extrusora)":
     st.markdown("<br>", unsafe_allow_html=True)
     st.subheader("2. Detección de Anomalías Sensoriales (Isolation Forest)")
 
-    anomalias_df = df_extrusora_clean[df_extrusora_clean["anomalia_iso"]].copy()
+    anomalias_df = df_extrusora_clean[df_extrusora_clean["anomalia_iso"].eq(True)].copy()
     pct_anomalias = (len(anomalias_df) / len(df_extrusora_clean)) * 100
     st.info(
         f"El modelo no supervisado Isolation Forest identificó **{len(anomalias_df)} anomalías** ({pct_anomalias:.1f}% de la muestra) en la relación de carga de los motores y el KPI final."
@@ -452,8 +452,8 @@ elif tab_selection == "Eficiencia Energética (Extrusora)":
     df_extrusora_clean["consumo_total_kw"] = (
         df_extrusora_clean["md1_power"] + df_extrusora_clean["md2_power"]
     )
-    anomalias_df = df_extrusora_clean[df_extrusora_clean["anomalia_iso"]]
-    valid_mask = ~df_extrusora_clean["anomalia_iso"]
+    anomalias_df = df_extrusora_clean[df_extrusora_clean["anomalia_iso"].eq(True)]
+    valid_mask = df_extrusora_clean["anomalia_iso"].eq(False)
 
     fig_anom, ax_anom = plt.subplots(figsize=(10, 5))
     ax_anom.scatter(
