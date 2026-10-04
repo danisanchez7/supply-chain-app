@@ -511,7 +511,6 @@ elif tab_selection == "Eficiencia Energética (Extrusora)":
         Aislar estos casos garantiza que configuraciones térmicas perjudiciales para la maquinaria no se asuman como "normales" solo porque el consumo total cuadra.
         """)
 
-
     # 3. Clustering de Temperaturas (K-Means) y ANOVA
     st.markdown("<br>", unsafe_allow_html=True)
     st.subheader("3. Perfiles de Temperatura Óptimos (Clustering)")
