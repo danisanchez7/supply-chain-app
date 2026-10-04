@@ -502,13 +502,13 @@ elif tab_selection == "Eficiencia Energética (Extrusora)":
     ax_anom.legend()
     st.pyplot(fig_anom)
 
-    with st.expander("Justificación Matemática: Anomalías Multidimensionales en Proyecciones 2D"):
+    with st.expander("Detalle: Puntos anómalos dentro del rango normal"):
         st.write("""
-        **Nota Técnica:** Es común observar registros catalogados como anómalos (rojos) superpuestos en el clúster de operación normal. 
+        La gráfica proyecta únicamente dos variables (Consumo vs. KPI), pero Isolation Forest evaluó 10 variables físicas simultáneas (las temperaturas de los barriles 2 al 11). 
         
-        Esto ocurre debido a que la gráfica es una proyección **bidimensional** (Consumo vs Eficiencia), mientras que el algoritmo *Isolation Forest* se entrenó en un espacio de **10 dimensiones** evaluando el perfil térmico simultáneo de los cañones (`temp_barril_2` al `11`). 
+        Un punto rojo ubicado en el centro indica que, aunque el consumo energético global fue estándar, el operador configuró las temperaturas de forma atípica o errática en ese turno (ej. compensando zonas apagadas con zonas sobrecalentadas). 
         
-        Una anomalía en el centro de la gráfica indica que, si bien la potencia agregada de los motores y el KPI final caen dentro de un rango promedio, la receta de temperaturas aplicada por el operador en ese turno fue estadísticamente aberrante (ej. cañones apagados compensados con cañones sobrecalentados). Esto evidencia fallas de proceso que son invisibles a un análisis visual clásico.
+        Aislar estos casos garantiza que configuraciones térmicas perjudiciales para la maquinaria no se asuman como "normales" solo porque el consumo total cuadra.
         """)
 
 
