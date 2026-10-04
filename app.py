@@ -453,7 +453,7 @@ elif tab_selection == "Eficiencia Energética (Extrusora)":
         df_extrusora_clean["md1_power"] + df_extrusora_clean["md2_power"]
     )
     anomalias_df = df_extrusora_clean[df_extrusora_clean["anomalia_iso"]]
-    valid_mask = not df_extrusora_clean["anomalia_iso"]
+    valid_mask = ~df_extrusora_clean["anomalia_iso"]
 
     fig_anom, ax_anom = plt.subplots(figsize=(10, 5))
     ax_anom.scatter(
